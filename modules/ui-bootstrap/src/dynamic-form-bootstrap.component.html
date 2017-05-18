@@ -163,7 +163,7 @@
                     (change)="onValueChange($event)"
                     (focus)="onFocusChange($event)">
 
-                <option *ngFor="let option of model.options"
+                <option *ngFor="let option of model.options.length ? model.options : (model.observableOptions | async)"
                         [attr.name]="model.name"
                         [ngValue]="option.value">{{option.label}}
                 </option>
