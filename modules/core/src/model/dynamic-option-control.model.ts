@@ -39,17 +39,20 @@ export class DynamicFormOption<T> {
 export interface DynamicOptionControlModelConfig<T> extends DynamicFormValueControlModelConfig<T | T[]> {
 
     options?: DynamicFormOptionConfig<T>[];
+    observableOptions?: Observable<Array<DynamicFormOption<T>>>;
 }
 
 export abstract class DynamicOptionControlModel<T> extends DynamicFormValueControlModel<T | T[]> {
 
     @serializable() options: DynamicFormOption<T>[];
+    observableOptions?: Observable<Array<DynamicFormOption<T>>>;
 
     constructor(config: DynamicOptionControlModelConfig<T>, cls?: ClsConfig) {
 
         super(config, cls);
 
         this.options = config.options ? config.options.map(optionConfig => new DynamicFormOption<T>(optionConfig)) : [];
+        this.observableOptions = config.observableOptions || null;
     }
 
     add(optionConfig: DynamicFormOptionConfig<T>): DynamicFormOption<T> {
